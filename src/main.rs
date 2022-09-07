@@ -4,6 +4,12 @@ use std::io::stdin;
 
 use std::env;
 
+///This is basically tutorial style code on my part so far to familiarize myself 
+///with Rust. So this will almost be entirely deleted or refactored into the sales
+///tax application soon. 
+
+//TODO: Get to it. :)
+
 fn get_dimension(input: &mut String) {
     stdin().read_line(input).ok().expect("Failed to read line");
 }
