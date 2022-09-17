@@ -1,57 +1,11 @@
 #![allow(unused)]
 
-use std::io::stdin;
-
 use std::env;
+use std::io::{stderr, stdin, stdout, Write};
 
 ///This is basically tutorial style code on my part so far to familiarize myself
 ///with Rust. So this will almost be entirely deleted or refactored into the sales
 ///tax application soon.
-
-//TODO: Get to it.
-
-///////////////////////////
-
-// fn get_dimension(input: &mut String) {
-//     stdin().read_line(input).ok().expect("Failed to read line");
-// }
-
-// fn calculate_area(length: &String, width: &String) -> i32 {
-//     let length_to_int = length.trim().parse::<i32>().unwrap();
-//     let width_to_int = width.trim().parse::<i32>().unwrap();
-//     length_to_int * width_to_int
-// }
-
-// fn main() {
-//     println!("Write something as a test");
-//     let mut input_string = String::new();
-//     get_dimension(&mut input_string);
-//     println!("You wrote: {}", input_string);
-
-//     println!("What is the width?");
-//     let mut input_width = String::new();
-//     get_dimension(&mut input_width);
-//     println!("You wrote: {}", input_width);
-
-//     println!("What is the length?");
-//     let mut input_length = String::new();
-//     get_dimension(&mut input_length);
-//     println!("You wrote: {}", input_length);
-
-//     let area = calculate_area(&input_length, &input_width);
-
-//     println!(
-//         "The dimensions you provided are {L} and {W}",
-//         L = input_length.trim(),
-//         W = input_width
-//     );
-
-//     println!("Area of your shape is {}", area);
-// }
-//
-// /////////////////////
-//
-//
 
 struct NonExemptSales {
     shopify: f32,
@@ -68,15 +22,15 @@ struct ExemptSales {
 
 fn math_for_non_exempt(stream: &mut f32) -> f32 {
     let tax_rate: f32 = 0.07;
-
     let mut stream_math = *stream / tax_rate;
     *stream = stream_math;
-    return *stream
+    return *stream;
 }
 
 //TODO: Still just messing with these types.
 fn get_dimension(input: &mut f32) -> f32 {
     let mut input_string = String::new();
+    stdout().flush().expect("Failed to flush");
     stdin()
         .read_line(&mut input_string)
         .ok()
@@ -105,23 +59,32 @@ fn main() {
     // TODO: test with just a couple of channels, and figure the best way to  separate
     // exempt and non-exempt sales
 
-    print!("Please input the sales information below:");
+    println!("please input the sales information below");
     println!("----------");
 
-    println!("shopify:");
+    print!("shopify: ");
     get_dimension(&mut non_exempt_sales.shopify);
     println!("You wrote: {}", non_exempt_sales.shopify);
+    println!("----------");
 
-    // println!("square:");
-    // get_dimension(&mut non_exempt_sales.square);
-    // println!("You wrote: {}", non_exempt_sales.square);
+    print!("square:");
+    get_dimension(&mut non_exempt_sales.square);
+    println!("You wrote: {}", non_exempt_sales.square);
+    println!("----------");
 
-    // println!("faire:");
-    // get_dimension(&mut exempt_sales.faire);
-    // println!("You wrote: {}", exempt_sales.faire);
+    print!("faire:");
+    get_dimension(&mut exempt_sales.faire);
+    println!("You wrote: {}", exempt_sales.faire);
+    println!("----------");
 
     println!("Sales Tax TEST: {}", non_exempt_sales.shopify);
+    println!("----------");
 
     math_for_non_exempt(&mut non_exempt_sales.shopify);
-    println!("MATH TEST: {}", non_exempt_sales.shopify);
+    println!("shopify math TEST: {}", non_exempt_sales.shopify);
+    println!("----------");
+
+    math_for_non_exempt(&mut non_exempt_sales.square);
+    println!("square TEST: {}", non_exempt_sales.square);
+    println!("----------");
 }
